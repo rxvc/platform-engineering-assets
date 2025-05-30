@@ -1,0 +1,30 @@
+{
+  "name": "platform-devcontainer",
+  "version": "0.0.0-development",
+  "release": {
+    "branches": ["main"],
+    "tagFormat": "platform-devcontainer@v${version}",
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      "@semantic-release/github",
+      "@semantic-release/git",
+      [
+        "@semantic-release/exec",
+        {
+          "publishCmd": "../../.github/scripts/publish-docker.sh platform-devcontainer ${nextRelease.version}"
+        }
+      ]
+    ]
+  },
+  "devDependencies": {
+    "semantic-release": "^23.0.0",
+    "@semantic-release/commit-analyzer": "^11.0.0",
+    "@semantic-release/release-notes-generator": "^12.0.0",
+    "@semantic-release/changelog": "^6.0.2",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/npm": "^10.0.3",
+    "@semantic-release/exec": "^6.0.3"
+  }
+}

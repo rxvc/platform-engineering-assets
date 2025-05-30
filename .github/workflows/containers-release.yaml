@@ -25,12 +25,19 @@ jobs:
         id: set-matrix
         shell: bash
         run: |
-          git fetch origin main
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            git fetch origin main
+            BASE=$(git merge-base origin/main HEAD)
+          else
+            BASE=HEAD^
+          fi
 
-          BASE=$(git merge-base origin/main HEAD)
-          echo "Comparing changes from $BASE to HEAD..."
+          echo "Using base: $BASE"
+          CHANGED_FILES=$(git diff --name-only $BASE...HEAD)
 
-          CONTAINERS=$(git diff --name-only "$BASE"...HEAD | grep '^containers/' | cut -d/ -f2 | sort -u | uniq || true)
+          echo "$CHANGED_FILES"
+
+          CONTAINERS=$(echo "$CHANGED_FILES" | grep '^containers/' | cut -d/ -f2 | sort -u | uniq || true)
 
           if [ -z "$CONTAINERS" ]; then
             MATRIX="[]"
@@ -62,6 +69,7 @@ jobs:
         with:
           node-version: 20
           cache: npm
+          cache-dependency-path: containers/${{ matrix.container }}/package-lock.json
 
       - name: Install dependencies for ${{ matrix.container }}
         working-directory: containers/${{ matrix.container }}

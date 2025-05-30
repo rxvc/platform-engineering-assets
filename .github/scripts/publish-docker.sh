@@ -1,8 +1,9 @@
 #!/bin/bash
 set -e
 
-VERSION=$1
-IMAGE_NAME=ghcr.io/${GITHUB_REPOSITORY,,}
+ARTIFACT_NAME=$1
+VERSION=$2
+IMAGE_NAME=ghcr.io/${GITHUB_REPOSITORY,,}/${ARTIFACT_NAME}
 
 echo "Building Docker image ${IMAGE_NAME}:${VERSION}"
 docker build -t ${IMAGE_NAME}:${VERSION} .

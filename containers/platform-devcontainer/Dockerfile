@@ -1,4 +1,4 @@
-# Image Docs: https://github.com/devcontainers/images/tree/main/src/base-ubuntu
+# https://github.com/devcontainers/images/tree/main/src/base-ubuntu
 FROM mcr.microsoft.com/devcontainers/base:ubuntu-24.04
 
 # Run the things we need
