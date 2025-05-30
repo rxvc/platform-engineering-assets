@@ -1,0 +1,77 @@
+name: Monorepo Docker Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  detect-changes:
+    name: Detect Changed Containers
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Ensure full history is available
+
+      - name: Fetch base branch
+        run: git fetch origin main
+
+      - name: Detect changed containers
+        id: set-matrix
+        shell: bash
+        run: |
+          git fetch origin main
+
+          BASE=$(git merge-base origin/main HEAD)
+          echo "Comparing changes from $BASE to HEAD..."
+
+          CONTAINERS=$(git diff --name-only "$BASE"...HEAD | grep '^containers/' | cut -d/ -f2 | sort -u | uniq || true)
+
+          if [ -z "$CONTAINERS" ]; then
+            MATRIX="[]"
+          else
+            MATRIX=$(echo "$CONTAINERS" | jq -R -s -c 'split("\n") | map(select(. != ""))')
+          fi
+
+          echo "Detected containers: $MATRIX"
+          echo "matrix=$MATRIX" >> "$GITHUB_OUTPUT"
+
+  release:
+    name: Release Changed Containers
+    needs: detect-changes
+    if: needs.detect-changes.outputs.matrix != '[]'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        container: ${{ fromJson(needs.detect-changes.outputs.matrix) }}
+    permissions:
+      contents: write
+      packages: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies for ${{ matrix.container }}
+        working-directory: containers/${{ matrix.container }}
+        run: npm ci
+
+      - name: Log in to GHCR
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Semantic release for ${{ matrix.container }}
+        working-directory: containers/${{ matrix.container }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release

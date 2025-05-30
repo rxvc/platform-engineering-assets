@@ -1,0 +1,23 @@
+{
+  "name": "devcontainer",
+  "version": "0.0.0-development",
+  "release": {
+    "branches": ["main"],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      "@semantic-release/github",
+      "@semantic-release/git",
+      [
+        "@semantic-release/exec",
+        {
+          "publishCmd": "../../.github/scripts/publish-docker.sh platform-devcontainers ${nextRelease.version}"
+        }
+      ]
+    ]
+  },
+  "devDependencies": {
+    "semantic-release": "^22.0.0"
+  }
+}
