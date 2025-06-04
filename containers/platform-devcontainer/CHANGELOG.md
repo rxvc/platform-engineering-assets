@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/rxvc/platform-engineering-assets/compare/platform-devcontainer@v1.0.0...platform-devcontainer@v1.1.0) (2025-06-04)
+
+
+### Features
+
+* add k3d ([8340555](https://github.com/rxvc/platform-engineering-assets/commit/834055577622ad49afb119aa9da3810f02864466))
+
 # 1.0.0 (2025-05-31)
 
 
