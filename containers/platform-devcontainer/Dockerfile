@@ -34,8 +34,8 @@ RUN curl -Lo /usr/local/bin/kind https://kind.sigs.k8s.io/dl/${KIND_VERSION}/kin
     && chmod +x /usr/local/bin/kind \
     && echo 'source <(kind completion bash)' >> /usr/share/bash-completion/completions/kind
 
-# ENV K3D_VERSION=v5.8.3
-# RUN wget -q -O - https://raw.githubusercontent.com/k3d-io/k3d/${K3D_VERSION}/install.sh | bash
+ENV K3D_VERSION=v5.8.3
+RUN wget -q -O - https://raw.githubusercontent.com/k3d-io/k3d/${K3D_VERSION}/install.sh | bash
 
 # This should be the same K8s version that kind creates.
 ENV KUBECTL_VERSION=v1.33.1
