@@ -12,6 +12,7 @@ RUN curl -sSL -o /usr/local/bin/argocd "https://github.com/argoproj/argo-cd/rele
     && chmod +x /usr/local/bin/argocd \
     && echo 'source <(argocd completion bash)' >> /usr/share/bash-completion/completions/argocd
 
+# Install Argo Workflows CLI
 ENV ARGO_WORKFLOWS_VERSION=v3.7.3
 RUN curl -Lo /tmp/argo-linux-amd64.gz "https://github.com/argoproj/argo-workflows/releases/download/${ARGO_WORKFLOWS_VERSION}/argo-linux-amd64.gz" \
     && gunzip /tmp/argo-linux-amd64.gz \
