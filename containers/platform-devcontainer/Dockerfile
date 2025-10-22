@@ -7,19 +7,19 @@ RUN apt update && apt install bash-completion && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Select desired version for each tool
-ENV ARGOCD_VERSION=v3.0.5
+ENV ARGOCD_VERSION=v3.1.9
 RUN curl -sSL -o /usr/local/bin/argocd "https://github.com/argoproj/argo-cd/releases/download/${ARGOCD_VERSION}/argocd-linux-amd64" \
     && chmod +x /usr/local/bin/argocd \
     && echo 'source <(argocd completion bash)' >> /usr/share/bash-completion/completions/argocd
 
-ENV ARGO_WORKFLOWS_VERSION=v3.6.7
+ENV ARGO_WORKFLOWS_VERSION=v3.7.3
 RUN curl -Lo /tmp/argo-linux-amd64.gz "https://github.com/argoproj/argo-workflows/releases/download/${ARGO_WORKFLOWS_VERSION}/argo-linux-amd64.gz" \
     && gunzip /tmp/argo-linux-amd64.gz \
     && mv /tmp/argo-linux-amd64 /usr/local/bin/argo \
     && chmod +x /usr/local/bin/argo \
     && echo 'source <(argo completion bash)' >> /usr/share/bash-completion/completions/argo
 
-ENV ARGO_ROLLOUTS_VERSION=v1.8.2
+ENV ARGO_ROLLOUTS_VERSION=v1.8.3
 RUN curl -sSL -o /usr/local/bin/kubectl-argo-rollouts "https://github.com/argoproj/argo-rollouts/releases/download/${ARGO_ROLLOUTS_VERSION}/kubectl-argo-rollouts-linux-amd64" \
     && chmod +x /usr/local/bin/kubectl-argo-rollouts \
     && echo 'source <(kubectl-argo-rollouts completion bash)' >> /usr/share/bash-completion/completions/kubectl-argo-rollouts
@@ -29,7 +29,7 @@ RUN curl -sSL -o /usr/local/bin/akuity "https://dl.akuity.io/akuity-cli/${AKUITY
     && chmod +x /usr/local/bin/akuity \
     && echo 'source <(akuity completion bash)' >> /usr/share/bash-completion/completions/akuity
 
-ENV KIND_VERSION=v0.29.0
+ENV KIND_VERSION=v0.30.0
 RUN curl -Lo /usr/local/bin/kind https://kind.sigs.k8s.io/dl/${KIND_VERSION}/kind-linux-amd64 \
     && chmod +x /usr/local/bin/kind \
     && echo 'source <(kind completion bash)' >> /usr/share/bash-completion/completions/kind
@@ -38,7 +38,7 @@ ENV K3D_VERSION=v5.8.3
 RUN wget -q -O - https://raw.githubusercontent.com/k3d-io/k3d/${K3D_VERSION}/install.sh | bash
 
 # This should be the same K8s version that kind creates.
-ENV KUBECTL_VERSION=v1.33.1
+ENV KUBECTL_VERSION=v1.34.1
 RUN curl -Lo /usr/local/bin/kubectl "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl" \
     && chmod +x /usr/local/bin/kubectl
 
@@ -58,14 +58,14 @@ RUN curl -Lo /tmp/kustomize.tar.gz https://github.com/kubernetes-sigs/kustomize/
     && chmod +x /usr/local/bin/kustomize \
     && echo 'source <(kustomize completion bash)' >> /usr/share/bash-completion/completions/kustomize
 
-ENV HELM_VERSION=3.18.1
+ENV HELM_VERSION=3.19.0
 RUN curl -LO "https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz" \
     && tar -zxvf "helm-v${HELM_VERSION}-linux-amd64.tar.gz" \
     && mv linux-amd64/helm /usr/local/bin/ \
     && rm -rf "helm-v${HELM_VERSION}-linux-amd64.tar.gz" linux-amd64 \
     && echo 'source <(helm completion bash)' >> /usr/share/bash-completion/completions/helm
 
-ENV KARGO_VERSION=v1.4.1
+ENV KARGO_VERSION=v1.8.0
 RUN curl -Lo /usr/local/bin/kargo "https://github.com/akuity/kargo/releases/download/${KARGO_VERSION}/kargo-linux-amd64" \
     && chmod +x /usr/local/bin/kargo \
     && echo 'source <(kargo completion bash)' >> /usr/share/bash-completion/completions/kargo
