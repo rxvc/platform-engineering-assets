@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/rxvc/platform-engineering-assets/compare/platform-devcontainer@v1.1.0...platform-devcontainer@v1.2.0) (2025-10-22)
+
+
+### Features
+
+* **platform-devcontainer:** update argo and it tools ([35fba08](https://github.com/rxvc/platform-engineering-assets/commit/35fba088b0caef18064502ce7b30f30e19a3ba59))
+
 # [1.1.0](https://github.com/rxvc/platform-engineering-assets/compare/platform-devcontainer@v1.0.0...platform-devcontainer@v1.1.0) (2025-06-04)
 
 
