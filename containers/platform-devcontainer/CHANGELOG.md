@@ -1,3 +1,11 @@
+# [1.3.0](https://github.com/rxvc/platform-engineering-assets/compare/platform-devcontainer@v1.2.0...platform-devcontainer@v1.3.0) (2025-10-23)
+
+
+### Features
+
+* **platform-devcontainer:** multi architecture buildx ([987f45e](https://github.com/rxvc/platform-engineering-assets/commit/987f45e9e092db26974e29a571ca31cc229e485a))
+* **platform-devcontainer:** update yq ([be1c16e](https://github.com/rxvc/platform-engineering-assets/commit/be1c16e2053c48d5ee95661488e1753ef0497777))
+
 # [1.2.0](https://github.com/rxvc/platform-engineering-assets/compare/platform-devcontainer@v1.1.0...platform-devcontainer@v1.2.0) (2025-10-22)
 
 
