@@ -72,7 +72,7 @@ RUN curl -Lo /usr/local/bin/kargo "https://github.com/akuity/kargo/releases/down
     && echo 'source <(kargo completion bash)' >> /usr/share/bash-completion/completions/kargo
 
 # Install yq
-ENV YQ_VERSION=v4.45.1
+ENV YQ_VERSION=v4.48.1
 RUN curl -Lo /usr/local/bin/yq "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64" \
     && chmod +x /usr/local/bin/yq \
     && echo 'source <(yq shell-completion bash)' >> /usr/share/bash-completion/completions/yq
